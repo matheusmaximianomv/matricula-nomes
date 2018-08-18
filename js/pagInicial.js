@@ -3,10 +3,9 @@ var alunosTotal = 0;
 
 $(function() {
   $('#tabelaAlunos').hide();
-  $('#btnQtdAlunos').on('click', function() {
-    
+  $('#btnQtdAlunos').on('click', function(e) {
+    e.preventDefault();
     var quantidadeAlunos = $('#inputQtdAlunos').val();
-
     adicionarInputAlunos(quantidadeAlunos);
   });
   

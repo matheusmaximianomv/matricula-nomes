@@ -3,8 +3,8 @@ var alunosTotal = 0;
 
 $(function() {
   $('#tabelaAlunos').hide();
-  $('#btnQtdAlunos').on('click', function() {
-    
+  $('#btnQtdAlunos').on('click', function(e) {
+    e.preventDefault();
     var quantidadeAlunos = $('#inputQtdAlunos').val();
     adicionarInputAlunos(quantidadeAlunos);
 
@@ -42,43 +42,36 @@ function adicionarInputAlunos(quantidadeAlunos) {
     `);
   }
 
-  //alunos.push($('.inputTab').val());
-  
-  // alunos = $('.inputTab');
-
   escondeDivQtdAlunos();
 
-  $('.inputTab').on('keyup', function(e) {
+  $('.inputTab').keydown(function(e) {
     var codeTab = e.keyCode;
-  
     if (codeTab == '9') {
-      var elementoAtual = $(this).attr('qtd-alunos-id') - 1
-      console.log(elementoAtual);
+      var elementoAtual = $(this).attr('qtd-alunos-id');
+      //console.log(elementoAtual);
       var aluno = $('[qtd-alunos-id='+ elementoAtual +']').val();
-      //var ultimo = alunos[alunos.length - 1];
-      mostrarTabelaAluno([aluno]);
-      //mostrarTabelaAluno([ultimo]);
-
-      //error();
+      if(aluno) {
+        mostrarTabelaAluno([aluno]);
+      } else {
+        error(parseInt(elementoAtual)+1);
+      }
+      
     }
 
   });
 
 }
 
-function error() {
-
-    if ($('#qtd-alunos-id').val() == "") {
+function error(i) {
       $('#mensagens').append(`
         <div class="alert alert-danger">
-          Você precisa inserir algum aluno!
+          Você não inseriu o aluno ${i}.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
       </div>
     `);
       return;
-    }
 }
 
 
